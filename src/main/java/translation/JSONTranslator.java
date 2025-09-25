@@ -52,9 +52,9 @@ public class JSONTranslator implements Translator {
                 countryCodes.add(countryCode);
 
                 // iterate through the other keys to get the information that we need
-                for (String key : countryData.keySet()) {
-                    if (!key.equals("id") && !key.equals("alpha2") && !key.equals("alpha3")) {
-                        String languageCode = key;
+                for (String languageCode : countryData.keySet()) {
+                    if (!languageCode.equals("id") && !languageCode.equals("alpha2") && !languageCode.equals("alpha3")) {
+                        System.out.println(languageCode + " - " + countryCode + "\n");
                         translations.put(countryCode + "-" + languageCode, countryData.getString(languageCode));
 
                         if (!languageCodes.contains(languageCode)) {
@@ -67,15 +67,6 @@ public class JSONTranslator implements Translator {
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
-
-        /*
-        System.out.println("Loaded " + languageCodes.size() + " languages");
-
-        for (String language : languageCodes) {
-            System.out.println(language);
-            System.out.println('\n');
-        }
-        */
     }
 
     @Override
