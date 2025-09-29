@@ -3,11 +3,6 @@ package translation;
 import javax.swing.*;
 import java.awt.event.*;
 
-// TODO Task D: Update the GUI for the program to align with UI shown in the README example.
-//            Currently, the program only uses the CanadaTranslator and the user has
-//            to manually enter the language code they want to use for the translation.
-//            See the examples package for some code snippets that may be useful when updating
-//            the GUI.
 public class GUI {
 
     public static void main(String[] args) {
@@ -53,35 +48,48 @@ public class GUI {
 
             JPanel buttonPanel = new JPanel();
 
-            JButton submit = new JButton("Submit");
-            buttonPanel.add(submit);
-
             JLabel resultLabelText = new JLabel("Translation:");
             buttonPanel.add(resultLabelText);
             JLabel resultLabel = new JLabel("\t\t\t\t\t\t\t");
             buttonPanel.add(resultLabel);
 
+            countriesList.addListSelectionListener(e -> {
+               if (!e.getValueIsAdjusting()) {
+                   String country =  countriesList.getSelectedValue();
+                   String language = (String) languages.getSelectedItem();
 
-            // adding listener for when the user clicks the submit button
-            submit.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String language = (String) languages.getSelectedItem();
-                    System.out.println(language);
+                   JSONTranslator json_translator =  new JSONTranslator();
+                   CountryCodeConverter country_converter = new CountryCodeConverter();
+                   LanguageCodeConverter code_converter = new LanguageCodeConverter();
 
-                    String country = countriesList.getSelectedValue();
-                    System.out.println(country);
+                   String inputCountry = country_converter.fromCountry(country);
+                   String inputLanguage = code_converter.fromLanguage(language);
 
-                    JSONTranslator json_translator =  new JSONTranslator();
-                    CountryCodeConverter converter = new CountryCodeConverter();
-                    LanguageCodeConverter code_converter = new LanguageCodeConverter();
-
-                    String result = json_translator.translate(country, language);
-                    if (result == null) {
+                   String result = json_translator.translate(inputCountry, inputLanguage);
+                   if (result == null) {
                        result = "no translation found!";
-                    }
-                    resultLabel.setText(result);
+                   }
+                   resultLabel.setText(result);
+               }
+            });
+
+            languages.addActionListener(e -> {
+                String country = countriesList.getSelectedValue();
+                String language = (String) languages.getSelectedItem();
+
+                JSONTranslator json_translator =  new JSONTranslator();
+                CountryCodeConverter country_converter = new CountryCodeConverter();
+                LanguageCodeConverter code_converter = new LanguageCodeConverter();
+
+                String inputCountry = country_converter.fromCountry(country);
+                String inputLanguage = code_converter.fromLanguage(language);
+
+                String result = json_translator.translate(inputCountry, inputLanguage);
+                if (result == null) {
+                    result = "no translation found!";
                 }
+
+                resultLabel.setText(result);
             });
 
             JPanel mainPanel = new JPanel();
@@ -94,6 +102,7 @@ public class GUI {
             frame.setContentPane(mainPanel);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
+
             frame.setVisible(true);
 
 
