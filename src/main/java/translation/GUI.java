@@ -55,7 +55,7 @@ public class GUI {
 
             countriesList.addListSelectionListener(e -> {
                if (!e.getValueIsAdjusting()) {
-                   String country =  countriesList.getSelectedValue();
+                   String country = countriesList.getSelectedValue();
                    String language = (String) languages.getSelectedItem();
 
                    JSONTranslator json_translator =  new JSONTranslator();
@@ -66,10 +66,14 @@ public class GUI {
                    String inputLanguage = code_converter.fromLanguage(language);
 
                    String result = json_translator.translate(inputCountry, inputLanguage);
-                   if (result == null) {
-                       result = "no translation found!";
+
+                   if (language != null) {
+                       if (result == null) {
+                           result = "no translation found!";
+                       }
+                       resultLabel.setText(result);
                    }
-                   resultLabel.setText(result);
+
                }
             });
 
@@ -85,11 +89,14 @@ public class GUI {
                 String inputLanguage = code_converter.fromLanguage(language);
 
                 String result = json_translator.translate(inputCountry, inputLanguage);
-                if (result == null) {
-                    result = "no translation found!";
-                }
 
-                resultLabel.setText(result);
+                if (country != null) {
+                    if (result == null) {
+                        result = "no translation found!";
+                    }
+
+                    resultLabel.setText(result);
+                }
             });
 
             JPanel mainPanel = new JPanel();
@@ -104,8 +111,6 @@ public class GUI {
             frame.pack();
 
             frame.setVisible(true);
-
-
         });
     }
 }

@@ -43,8 +43,6 @@ public class LanguageCodeConverter {
             while (iterator.hasNext()) {
                 String line = iterator.next();
                 String[] split = line.split("\t");
-                System.out.println(split[0] + "\n");
-                System.out.println(split[1] + "\n");
 
                 languageCodeToLanguage.put(split[1], split[0]);
                 languageToLanguageCode.put(split[0], split[1]);
