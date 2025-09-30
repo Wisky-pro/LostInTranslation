@@ -11,8 +11,6 @@ public class GUI {
             JScrollPane countries;
             JList<String> countriesList;
 
-            /* Setup */
-
             JSONTranslator translator = new JSONTranslator();
             LanguageCodeConverter languageConverter = new LanguageCodeConverter();
             CountryCodeConverter countryConverter = new CountryCodeConverter();
@@ -34,7 +32,6 @@ public class GUI {
             countries = new JScrollPane(countriesList);
 
             languages = new JComboBox<>(model);
-            /* */
 
             JPanel countryPanel = new JPanel();
             countryPanel.setLayout(new BoxLayout(countryPanel, BoxLayout.Y_AXIS));

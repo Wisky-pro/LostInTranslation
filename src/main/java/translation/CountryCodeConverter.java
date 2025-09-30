@@ -37,7 +37,7 @@ public class CountryCodeConverter {
                     .getClassLoader().getResource(filename).toURI()));
 
             Iterator<String> iterator = lines.iterator();
-            iterator.next(); // skip the first line
+            iterator.next();
             while (iterator.hasNext()) {
                 String line = iterator.next();
                 String[] parts = line.split("\t");
@@ -69,7 +69,6 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-
         return countryToCountryCode.get(country);
     }
 
@@ -78,7 +77,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this country code converter.
      */
     public int getNumCountries() {
-
         return countryCodeToCountry.size();
     }
 }
